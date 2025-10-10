@@ -78,27 +78,32 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(float acceleration, float deceleration, Vector2 moveInput)
     {
-        if (moveInput != Vector2.zero)
+        float horizontalInput = moveInput.x;
+        bool hasHorizontalInput = !Mathf.Approximately(horizontalInput, 0f);
+        bool hasVerticalInput = !Mathf.Approximately(moveInput.y, 0f);
+
+        if (hasHorizontalInput || (!_isGrounded && hasVerticalInput))
         {
             TurnCheck(moveInput);
 
             Vector2 targetVelocity;
             if (InputManager.SprintIsHeld)
             {
-                targetVelocity = new Vector2(moveInput.x, 0f) * MoveStats.MaxSprintSpeed;
+                targetVelocity = new Vector2(horizontalInput, 0f) * MoveStats.MaxSprintSpeed;
             }
             else
             {
-                targetVelocity = new Vector2(moveInput.x, 0f) * MoveStats.MaxWalkSpeed;
+                targetVelocity = new Vector2(horizontalInput, 0f) * MoveStats.MaxWalkSpeed;
             }
 
             _moveVelocity = Vector2.Lerp(_moveVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
             _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y);
         }
 
-        else if (moveInput == Vector2.zero)
+        else
         {
-            _moveVelocity = Vector2.Lerp(_moveVelocity, Vector2.zero, deceleration * Time.fixedDeltaTime);
+            float decelerationRate = _isGrounded ? acceleration : deceleration;
+            _moveVelocity = Vector2.Lerp(_moveVelocity, Vector2.zero, decelerationRate * Time.fixedDeltaTime);
             _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y);
         }
 
