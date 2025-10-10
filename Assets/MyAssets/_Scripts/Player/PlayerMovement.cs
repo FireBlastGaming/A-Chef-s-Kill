@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         {
             TurnCheck(moveInput);
 
-            Vector2 targetVelocity = Vector2.zero;
+            Vector2 targetVelocity;
             if (InputManager.SprintIsHeld)
             {
                 targetVelocity = new Vector2(moveInput.x, 0f) * MoveStats.MaxSprintSpeed;
@@ -90,9 +90,10 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 targetVelocity = new Vector2(moveInput.x, 0f) * MoveStats.MaxWalkSpeed;
-                _moveVelocity = Vector2.Lerp(_moveVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
-                _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y);
             }
+
+            _moveVelocity = Vector2.Lerp(_moveVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+            _rb.linearVelocity = new Vector2(_moveVelocity.x, _rb.linearVelocity.y);
         }
 
         else if (moveInput == Vector2.zero)
