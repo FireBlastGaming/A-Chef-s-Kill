@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private float _coyoteTimer;
 
     private CameraFollowObject _cameraFollowObject;
+    private float _fallSpeedYDampingChangeThreshold;
 
 
     private void Awake()
@@ -57,13 +58,35 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
 
         _cameraFollowObject = _cameraFollowGo.GetComponent<CameraFollowObject>();
+
+    }
+
+    private void Start()
+    {
+        _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
     }
 
     private void Update()
     {
         CountTimers();
         JumpChecks();
+
+        //if we are falling past a certain speed threshold
+        if (_rb.linearVelocityY < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.instance.LerpYDamping(true);
+        }
+
+        //if we are stating still or moving up
+        if (_rb.linearVelocityY >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            //reset so it can be called again
+            CameraManager.instance.LerpedFromPlayerFalling = false;
+
+            CameraManager.instance.LerpYDamping(false);
+        }
     }
+
 
     private void FixedUpdate()
     {
