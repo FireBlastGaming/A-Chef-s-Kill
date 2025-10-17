@@ -35,7 +35,7 @@ public class PlayerMovementStats : ScriptableObject
     [Range(1, 5)] public int NumberOfJumpsAllowed = 2;
 
     [Header("Reset Jump Options")]
-    public bool ResetJumpOnWallSlide = true;
+    public bool ResetJumpsOnWallSlide = true;
 
     [Header("Jump Cut")]
     [Range(0.02f, 0.3f)] public float TimeForUpwardsCancel = 0.027f;
@@ -70,6 +70,9 @@ public class PlayerMovementStats : ScriptableObject
     [Header("Dash Cancel Time")]
     [Range(0.01f, 5f)] public float DashGravityOnReleaseMultiplier = 1f;
     [Range(0.02f, 0.3f)] public float DashTimeForUpwardsCancel = 0.027f;
+
+    [Header("Debug")]
+    public bool DebugShowWallHitBox;
 
 
     public readonly Vector2[] DashDirections = new Vector2[]
