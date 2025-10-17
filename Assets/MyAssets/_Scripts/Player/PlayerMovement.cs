@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -108,7 +109,8 @@ public class PlayerMovement : MonoBehaviour
         WallJumpCheck();
 
         WallSlideCheck();
-
+        DashCheck();
+   
         //if we are falling past a certain speed threshold
         if (_rb.linearVelocityY < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
         {
@@ -133,6 +135,7 @@ public class PlayerMovement : MonoBehaviour
         Fall();
         WallSlide();
         WallJump();
+        Dash();
 
         if (_isGrounded)
         {
@@ -714,6 +717,150 @@ public class PlayerMovement : MonoBehaviour
 
     #region Dash
 
+    private void DashCheck()
+    {
+        if(InputManager.DashWasPressed)
+        {
+            //ground dash
+            if (_isGrounded && _dashOnGroundTimer < 0 && !_isDashing)
+            {
+                InitiateDash();
+            }
+
+            //air dash
+            else if (!_isGrounded && !_isDashing && _numberOfDashesUsed < MoveStats.NumberOfDashes)
+            {
+                _isAirDashing = true;
+                InitiateDash();
+            }
+
+            //you left a wallslide but dashed within the wall jump post buffer time
+            if (_wallJumpPostBufferTimer > 0f)
+            {
+                _numberOfJumpsUsed--;
+                if (_numberOfJumpsUsed < 0f)
+                {
+                    _numberOfJumpsUsed = 0;
+                }
+            }
+        }
+
+    }
+
+    private void InitiateDash()
+    {
+        _dashDirection = InputManager.Movement;
+
+        Vector2 closestDirection = Vector2.zero;
+        float minDistance = Vector2.Distance(_dashDirection, MoveStats.DashDirections[0]);
+
+        for (int i = 0; i < MoveStats.DashDirections.Length; i++)
+        {
+            //skip if we hit it bang on
+            if (_dashDirection == MoveStats.DashDirections[i])
+            {
+                closestDirection = _dashDirection;
+                break;
+            }
+
+            float distance = Vector2.Distance(_dashDirection, MoveStats.DashDirections[i]);
+
+            //check if this is a diagonal direction and apply bias
+            bool isDiagonal = (Mathf.Abs(MoveStats.DashDirections[i].x) == 1 && Mathf.Abs(MoveStats.DashDirections[i].y) == 1);
+            if (isDiagonal)
+            {
+                distance -= MoveStats.DashDiagonallyBias;
+            }
+
+            else if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestDirection = MoveStats.DashDirections[i];
+            }
+        }
+
+        //handle direction with NO input
+        if (closestDirection == Vector2.zero)
+        {
+            if (_isFacingRight)
+            {
+                closestDirection = Vector2.right;
+            }
+            else { closestDirection = Vector2.left; }
+        }
+
+        _dashDirection = closestDirection;
+        _numberOfDashesUsed++;
+        _isDashing = true;
+        _dashTimer = 0f;
+        _dashOnGroundTimer = MoveStats.TimeBtwDashesOnGround;
+
+        ResetJumpValues();
+        ResetWallJumpValues();
+        StopWallSlide();
+    }
+
+    private void Dash()
+    {
+        if (_isDashing)
+        {
+            //stop the dash after the timer
+            _dashTimer += Time.fixedDeltaTime;
+            if (_dashTimer >= MoveStats.DashTime)
+            {
+                if (_isGrounded)
+                {
+                    ResetDashes();
+                }
+
+                _isAirDashing = false;
+                _isDashing = false;
+
+                if (!_isJumping && !_isWallJumping)
+                {
+                    _dashFastFallTime = 0f;
+                    _dashFastFallReleaseSpeed = VerticalVelocity;
+
+                    if (!_isGrounded)
+                    {
+                        _isDashFastFalling = true;
+                    }
+                }
+
+                return;
+            }
+
+            HorizontalVelocity = MoveStats.DashSpeed * _dashDirection.x;
+
+            if (_dashDirection.y != 0f || _isAirDashing)
+            {
+                VerticalVelocity = MoveStats.DashSpeed * _dashDirection.y;
+            }
+        }
+
+        //HANDLE DASH CUT TIME
+        else if (_isDashFastFalling)
+        {
+            if (VerticalVelocity > 0f)
+            {
+                if (_dashFastFallTime < MoveStats.DashTimeForUpwardsCancel)
+                {
+                    VerticalVelocity = Mathf.Lerp(_dashFastFallReleaseSpeed, 0f, (_dashFastFallTime / MoveStats.DashTimeForUpwardsCancel));
+                }
+                else if (_dashFastFallTime >= MoveStats.DashTimeForUpwardsCancel)
+                {
+                    VerticalVelocity += MoveStats.Gravity * MoveStats.DashGravityOnReleaseMultiplier * Time.fixedDeltaTime;
+                }
+
+                _dashFastFallTime += Time.fixedDeltaTime;
+            }
+            else
+            {
+                VerticalVelocity += MoveStats.Gravity * MoveStats.DashGravityOnReleaseMultiplier * Time.fixedDeltaTime;
+            }
+        }
+    }
+
     private void ResetDashValues()
     {
         _isDashFastFalling = false;
@@ -841,6 +988,12 @@ public class PlayerMovement : MonoBehaviour
         if (!ShouldApplyPostWallJumpBuffer())
         {
             _wallJumpPostBufferTimer -= Time.deltaTime;
+        }
+
+        //dash timer
+        if (_isGrounded)
+        {
+            _dashOnGroundTimer -= Time.deltaTime;
         }
     }
 
