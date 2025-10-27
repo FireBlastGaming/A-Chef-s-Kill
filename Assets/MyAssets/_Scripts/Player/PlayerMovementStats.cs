@@ -123,4 +123,5 @@ public class PlayerMovementStats : ScriptableObject
         InitialWallJumpVelocity = Mathf.Abs(WallJumpGravity) * TimeTillJumpApex;
     }
 
+
 }
