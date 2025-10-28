@@ -2,3 +2,21 @@
 
 
 
+═══════════════════════════════════════
+        FRESH START
+              V.0.0.1
+           January 2025
+═══════════════════════════════════════
+
+A clean slate for the changelog system! We're starting fresh with a new tracking approach to better document all the exciting changes coming to the game.
+
+───────────────────────────────────────
+⚙️ TECHNICAL IMPROVEMENTS
+───────────────────────────────────────
+- Reset changelog tracking system for cleaner version history
+- Established new baseline for future update documentation
+- Improved changelog organization structure
+
+═══════════════════════════════════════
+
+**Developer Note:** This is the foundation for better update tracking. All future features, balance changes, and improvements will be clearly documented from this point forward!
