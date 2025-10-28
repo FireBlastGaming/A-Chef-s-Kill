@@ -1,0 +1,26 @@
+name: Update Changelog
+
+on:
+  repository_dispatch:
+    types: [update_changelog]
+
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Decode changelog content
+        id: decode
+        run: |
+          echo "${{ github.event.client_payload.content }}" | base64 --decode > .devai/changelog/abilities.txt
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "n8n-bot"
+          git config user.email "n8n-bot@local"
+          git add .devai/changelog/abilities.txt
+          git commit -m "chore(changelog): append entry [skip ci]" || echo "No changes"
+          git push origin ${{ github.event.client_payload.branch || 'main' }}
