@@ -74,6 +74,7 @@ crashlytics-build.properties
 # DevAI local temp
 .devai/runtime/*
 .devai/inbox/*
+.devai/onSave.ps1
 !.devai/diary/
 !.devai/plan/
 !.devai/weekly/
