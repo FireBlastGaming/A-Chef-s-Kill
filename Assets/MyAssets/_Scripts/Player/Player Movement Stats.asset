@@ -23,11 +23,10 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 8
-  GroundDetectionRayLength: 0.02
-  HeadDetectionRayLength: 0.02
-  HeadWidth: 0.75
-  WallDetectionRayLength: 0.125
-  WallDetectionRayHeightMultiplier: 0.75
+  UseHeadBumpSlide: 1
+  HeadBumpSlideSpeed: 13
+  HeadBumpBoxWidth: 0.3
+  HeadBumpBoxHeight: 0.1
   JumpHeight: 3.5
   JumpHeightCompensationFactor: 1.05
   TimeTillJumpApex: 0.35
@@ -51,6 +50,9 @@ MonoBehaviour:
   ResetDashOnWallSlide: 1
   NumberOfDashes: 2
   DashDiagonallyBias: 0.4
+  DashBufferTime: 0.125
   DashGravityOnReleaseMultiplier: 1
   DashTimeForUpwardsCancel: 0.027
-  DebugShowWallHitBox: 1
+  DebugShowWallHit: 0
+  DebugShowHeadBumpBox: 0
+  ExtraRayDebugDistance: 0.25
