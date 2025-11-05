@@ -17,21 +17,42 @@ MonoBehaviour:
   GroundDeceleration: 15
   AirAcceleration: 5
   AirDeceleration: 5
+  WallJumpMoveAcceleration: 5
+  WallJumpMoveDeceleration: 5
   MaxSprintSpeed: 12.5
   GroundLayer:
     serializedVersion: 2
     m_Bits: 8
-  GroundDetectionRayLength: 0.02
-  HeadDetectionRayLength: 0.02
-  HeadWidth: 0.75
+  UseHeadBumpSlide: 1
+  HeadBumpSlideSpeed: 13
+  HeadBumpBoxWidth: 0.3
+  HeadBumpBoxHeight: 0.1
   JumpHeight: 3.5
   JumpHeightCompensationFactor: 1.05
   TimeTillJumpApex: 0.35
   GravityOnReleaseMultiplier: 1.75
   MaxFallSpeed: 24
-  NumberOfJumpsAllowed: 2
+  NumberOfAirJumpsAllowed: 1
+  ResetJumpsOnWallSlide: 1
   TimeForUpwardsCancel: 0.027
   ApexThreshold: 0.97
   ApexHangTime: 0.075
   JumpBufferTime: 0.125
   JumpCoyoteTime: 0.1
+  WallSlideSpeed: 5
+  WallSlideDecelerationSpeed: 50
+  WallJumpDirection: {x: -20, y: 6.5}
+  WallJumpPostBufferTime: 0.125
+  WallJumpGravityOnReleaseMultiplier: 1
+  DashTime: 0.11
+  DashSpeed: 40
+  TimeBtwDashesOnGround: 0.225
+  ResetDashOnWallSlide: 1
+  NumberOfDashes: 2
+  DashDiagonallyBias: 0.4
+  DashBufferTime: 0.125
+  DashGravityOnReleaseMultiplier: 1
+  DashTimeForUpwardsCancel: 0.027
+  DebugShowWallHit: 0
+  DebugShowHeadBumpBox: 0
+  ExtraRayDebugDistance: 0.25

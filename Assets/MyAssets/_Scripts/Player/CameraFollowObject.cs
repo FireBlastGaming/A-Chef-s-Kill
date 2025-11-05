@@ -14,13 +14,15 @@ public class CameraFollowObject : MonoBehaviour
 
     private PlayerMovement _player;
 
+    private MovementController Controller;
+
     private bool _isFacingRight;
 
     private void Awake()
     {
         _player = _playerTransform.gameObject.GetComponent<PlayerMovement>();
 
-        _isFacingRight = _player._isFacingRight;
+        _isFacingRight = _player.IsFacingRight;
     }
 
     private void Update()
