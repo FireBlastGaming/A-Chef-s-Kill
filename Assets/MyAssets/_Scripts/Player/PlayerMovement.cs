@@ -175,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
-            Velocity.y = Mathf.Clamp(Velocity.y, -7f, 7f);
+            Velocity.y = Mathf.Clamp(Velocity.y, -50f, 50f);
         }
     }
 
