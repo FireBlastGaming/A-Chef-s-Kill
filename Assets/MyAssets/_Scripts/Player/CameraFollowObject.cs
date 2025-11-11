@@ -33,9 +33,14 @@ public class CameraFollowObject : MonoBehaviour
 
     public void CallTurn()
     {
+        Invoke("rotateSpriteUsingXScale", _flipYRotationTime-0.375f);
         _turnCoroutine = StartCoroutine(FlipYLerp());
+    }
 
-        //LeanTween.rotateY(gameObject, DetermineEndRotation(), _flipYRotationTime).setEaseInOutCubic();
+    private void rotateSpriteUsingXScale()
+    {
+        Vector3 scale = new Vector3(-_playerTransform.localScale.x, _playerTransform.localScale.y, _playerTransform.rotation.z);
+        _playerTransform.localScale = scale;
     }
 
     private IEnumerator FlipYLerp()
@@ -52,7 +57,6 @@ public class CameraFollowObject : MonoBehaviour
             //lerp the y rotation
             yRotation = Mathf.Lerp(startRotation, endRotationAmount, (elapsedTime / _flipYRotationTime));
             transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
-
             yield return null;
         }
     }

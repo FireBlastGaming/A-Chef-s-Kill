@@ -480,7 +480,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.64, y: 5.08, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: -0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4361622043386194941}
@@ -574,7 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   MoveStats: {fileID: 11400000, guid: db23bcde48a24da4eb8f1bdede3550ae, type: 2}
   _coll: {fileID: 3443408575753405933}
-  _cameraFollowGo: {fileID: 0}
+  _cameraFollowGo: {fileID: 4431633594419738439, guid: 6517965088f303a428c2aa59583bc1bb, type: 3}
   Velocity: {x: 0, y: 0}
 --- !u!114 &1733285727484645230
 MonoBehaviour:

@@ -239,6 +239,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Turn(bool turnRight)
     {
+        //Vector3 scale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.rotation.z);
+        //transform.localScale = scale;
+
         if (turnRight)
         {
             IsFacingRight = true;
@@ -246,6 +249,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+
             IsFacingRight = false;
             _cameraFollowObject.CallTurn();
         }
