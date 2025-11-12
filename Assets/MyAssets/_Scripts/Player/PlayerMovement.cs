@@ -226,6 +226,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void TurnCheck(Vector2 moveInput)
     {
+        if (_isWallJumping)
+        {
+            if (IsFacingRight)
+            {
+                Turn(false);
+            }
+            else if (!IsFacingRight)
+            {
+                Turn(true);
+            }
+        }
+
         if (IsFacingRight && moveInput.x < 0)
         {
             Turn(false);
@@ -681,6 +693,8 @@ public class PlayerMovement : MonoBehaviour
 
         Velocity.y = MoveStats.InitialWallJumpVelocity;
         Velocity.x = Mathf.Abs(MoveStats.WallJumpDirection.x) * -Controller.GetWallDirection();
+
+        TurnCheck(_moveInput);
 
         _jumpStartY = _rb.position.y;
     }
