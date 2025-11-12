@@ -33,7 +33,7 @@ public class CameraFollowObject : MonoBehaviour
 
     public void CallTurn()
     {
-        Invoke("rotateSpriteUsingXScale", _flipYRotationTime-0.375f);
+        Invoke("rotateSpriteUsingXScale", _flipYRotationTime-0.4f);
         _turnCoroutine = StartCoroutine(FlipYLerp());
     }
 
