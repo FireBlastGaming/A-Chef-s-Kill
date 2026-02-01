@@ -1,0 +1,43 @@
+{
+    "asset": "0a72b0f819841364da91576104f0d281",
+    "fileName": "019bc030-bf54-7c07-b500-4e8d95c37367.mp4",
+    "prompt": "walking",
+    "negativePrompt": "",
+    "model": "14785f64-3fcc-432a-8205-cdd2f582c757",
+    "modelName": "Kling 2.5 Pro",
+    "customSeed": -1,
+    "w3CTraceId": "4da10bb7b33a46db4e691cc2b9b82cf3",
+    "refinementMode": "Spritesheet",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": [
+            {
+                "doodleReferenceType": 9,
+                "doodle": [],
+                "label": "First",
+                "strength": 1.0,
+                "invertStrength": false,
+                "assetReferenceGuid": "0a72b0f819841364da91576104f0d281"
+            },
+            {
+                "doodleReferenceType": 10,
+                "doodle": [],
+                "label": "Last",
+                "strength": 1.0,
+                "invertStrength": false,
+                "assetReferenceGuid": "0a72b0f819841364da91576104f0d281"
+            }
+        ]
+    },
+    "upscaleFactor": 0,
+    "dimensions": {
+        "width": 0,
+        "height": 0
+    },
+    "spriteSheet": true,
+    "duration": 5.0
+}
