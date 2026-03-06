@@ -17,7 +17,7 @@ public class MeleeAttackManager : MonoBehaviour
         _meleeAnimator = GetComponentInChildren<MeleeWeapon>().gameObject.GetComponent<Animator>();
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         CheckInput();
     }
@@ -29,25 +29,25 @@ public class MeleeAttackManager : MonoBehaviour
 
         float verticalInput = InputManager.Movement.y;
 
-        // Upward melee
+        //upward melee
         if (_meleeAttack && verticalInput > 0)
         {
             _anim.SetTrigger("UpwardMelee");
             _meleeAnimator.SetTrigger("UpwardMeleeSwipe");
         }
-        // Downward melee (airborne only)
+        //downward melee (airborne only)
         else if (_meleeAttack && verticalInput < 0 && !_player.Controller.IsGrounded())
         {
             _anim.SetTrigger("DownwardMelee");
             _meleeAnimator.SetTrigger("DownwardMeleeSwipe");
         }
-        // Backward melee (attack opposite to facing direction)
+        //backward melee (attack opposite to facing direction)
         else if (_meleeAttack && !_player.IsFacingRight)
         {
             _anim.SetTrigger("BackwardMelee");
             _meleeAnimator.SetTrigger("BackwardMeleeSwipe");
         }
-        // Forward melee (default)
+        //forward melee (default)
         else if (_meleeAttack)
         {
             _anim.SetTrigger("ForwardMelee");
