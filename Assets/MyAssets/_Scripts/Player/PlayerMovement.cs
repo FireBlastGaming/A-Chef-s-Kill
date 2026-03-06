@@ -112,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Update()
-    {
+    {        
         _moveInput = InputManager.Movement;
         _sprintHeld = InputManager.SprintIsHeld;
         if (InputManager.JumpWasPressed) _jumpPressed = true;
@@ -196,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
             TurnCheck(_moveInput);
             float targetVelocityX = 0f;
 
-            if (hasHorizontalInput || (!Controller.IsGrounded() && hasVerticalInput))
+            if (hasHorizontalInput || (Controller.IsGrounded() && hasVerticalInput))
             {
                 float moveDirection = Mathf.Sign(_moveInput.x);
                 targetVelocityX = _sprintHeld ? moveDirection * MoveStats.MaxSprintSpeed : moveDirection * MoveStats.MaxWalkSpeed;
@@ -238,7 +238,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Turn(bool turnRight)
-    {
+    {        
         if (turnRight)
         {
             IsFacingRight = true;
@@ -567,6 +567,16 @@ public class PlayerMovement : MonoBehaviour
 
             _fastFallTime += timeStep; 
         }
+    }
+
+    public void TriggerBounceJump(float velocityMultiplier = 1f)
+    {
+        ResetJumpValues();
+        ResetWallJumpValues();
+        
+        _isJumping = true;
+        Velocity.y = MoveStats.InitialJumpVelocity * velocityMultiplier;
+        _jumpStartY = _rb.position.y;
     }
     #endregion
 
