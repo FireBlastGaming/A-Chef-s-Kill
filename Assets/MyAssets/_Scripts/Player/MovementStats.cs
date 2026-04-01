@@ -3,7 +3,7 @@ using UnityEngine.Rendering.Universal;
 
 
 [CreateAssetMenu(menuName ="Player Movement")]
-public class PlayerMovementStats : ScriptableObject
+public class MovementStats : ScriptableObject
 {
 
     [Header("Walk")]

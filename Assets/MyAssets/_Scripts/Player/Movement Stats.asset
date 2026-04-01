@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72e0b0605e53c844580d0a4664b477be, type: 3}
-  m_Name: Player Movement Stats
+  m_Name: Movement Stats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementStats
   MaxWalkSpeed: 8
   GroundAcceleration: 5
@@ -22,7 +22,7 @@ MonoBehaviour:
   MaxSprintSpeed: 12.5
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 128
   UseHeadBumpSlide: 1
   HeadBumpSlideSpeed: 13
   HeadBumpBoxWidth: 0.3

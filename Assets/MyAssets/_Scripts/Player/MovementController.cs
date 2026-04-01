@@ -14,7 +14,7 @@ public class MovementController : MonoBehaviour
 
     private BoxCollider2D _coll;
     public RaycastCorners RayCastCorners;
-    private PlayerMovementStats _moveStats;
+    private MovementStats _moveStats;
 
     public bool IsCollidingAbove { get; private set; }
     public bool IsCollidingBelow { get; private set; }
