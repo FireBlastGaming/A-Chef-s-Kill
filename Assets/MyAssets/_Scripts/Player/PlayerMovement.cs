@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    public PlayerMovementStats MoveStats;
+    public MovementStats MoveStats;
     [SerializeField] private Collider2D _coll;
 
     [Header("Camera Stuff")]

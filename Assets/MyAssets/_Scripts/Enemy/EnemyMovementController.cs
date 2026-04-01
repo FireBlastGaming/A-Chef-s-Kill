@@ -2,7 +2,7 @@ using NUnit.Framework.Constraints;
 using System;
 using UnityEngine;
 
-public class MovementController : MonoBehaviour
+public class EnemyMovementController : MonoBehaviour
 {
     public const float CollisionPadding = 0.015f;
 
@@ -24,7 +24,7 @@ public class MovementController : MonoBehaviour
     public bool IsHittingCeilingCenter { get; private set; }
     public bool IsHittingBothCorners { get; private set; }
 
-    private PlayerMovement _playerMovement;
+    private EnemyAi _enemyAi;
     private Rigidbody2D _rb;
 
     public struct RaycastCorners
@@ -39,8 +39,8 @@ public class MovementController : MonoBehaviour
     {
         _coll = GetComponent<BoxCollider2D>();
         _rb = GetComponent<Rigidbody2D>();
-        _playerMovement = GetComponent<PlayerMovement>();
-        _moveStats = _playerMovement.MoveStats;
+        _enemyAi = GetComponent<EnemyAi>();
+        _moveStats = _enemyAi.MoveStats;
 
     }
 
@@ -204,6 +204,24 @@ public class MovementController : MonoBehaviour
     public bool IsGrounded() => IsCollidingBelow;
     public bool BumpedHead() => IsCollidingAbove;
     public bool IsTouchingWall(bool isFacingRight) => (isFacingRight && IsCollidingRight) || (!isFacingRight && IsCollidingLeft);
+    public bool HasGroundAhead(bool isFacingRight, float forwardOffset = 0.08f, float downDistance = 0.25f)
+    {
+        UpdateRaycastCorners();
+
+        Vector2 ledgeCheckOrigin = isFacingRight ? RayCastCorners.bottomRight : RayCastCorners.bottomLeft;
+        ledgeCheckOrigin += Vector2.right * (isFacingRight ? forwardOffset : -forwardOffset);
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(ledgeCheckOrigin, Vector2.down, downDistance, _moveStats.GroundLayer);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].collider != null && hits[i].collider != _coll)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
     public int GetWallDirection()
     {
         if (IsCollidingLeft) return -1;

@@ -254,7 +254,7 @@
                 {
                     "name": "",
                     "id": "7fc20168-bffe-4793-850d-fb34cf396f18",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -276,7 +276,7 @@
                 {
                     "name": "",
                     "id": "b13a76fe-b0d3-487b-ac23-e060a19bda5a",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -287,6 +287,17 @@
                 {
                     "name": "",
                     "id": "4903e412-8e8a-46ae-bf6b-db8d9da5966b",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Primary Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7cc7678a-debb-42d8-bfab-03d64f28fc3b",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",

@@ -17,14 +17,14 @@ public class MeleeWeapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
-        if (enemyHealth != null)
+        HealthSystem healthSystem = collision.GetComponent<HealthSystem>();
+        if (healthSystem != null)
         {
-            HandleCollision(enemyHealth);
+            HandleCollision(healthSystem);
         }
     }
 
-    private void HandleCollision(EnemyHealth objHealth)
+    private void HandleCollision(HealthSystem objHealth)
     {
         float verticalInput = InputManager.Movement.y;
 
