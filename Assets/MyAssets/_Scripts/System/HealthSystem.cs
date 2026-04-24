@@ -69,16 +69,20 @@ public class HealthSystem : MonoBehaviour
             {
                 CurrentHealth = 0;
 
-                //hit stop when dead
-                TimeManager.Instance.AdjustGlobalTime(_hitScale/2, _invulnerabilityTime/2);
+                if (CompareTag("Player"))
+                {
+                    // Hit stop and death UI should only be applied when the player dies.
+                    TimeManager.Instance.AdjustGlobalTime(_hitScale / 2, _invulnerabilityTime / 2, false);
+                    UIManager.Instance.SetDeathState(true);
+                }
 
-                //removes GameObject from the scene; this should probably play a dying animation in a method that would handle all the other death logic, but for the test it just disables it from the scene
+                // Removes this object after death flash.
                 StartCoroutine(DisableOnDeath());
             }
             else
             {
                 //hit stop
-                TimeManager.Instance.AdjustGlobalTime(_hitScale, _invulnerabilityTime);
+                TimeManager.Instance.AdjustGlobalTime(_hitScale, _invulnerabilityTime, false);
 
                 
 
