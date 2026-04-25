@@ -1,10 +1,11 @@
 {
   "dependencies": {
-    "com.kinematicsoup.scenefusion2lite": {
-      "version": "file:com.kinematicsoup.scenefusion2lite",
+    "com.kinematicsoup.scenefusion2": {
+      "version": "https://github.com/KinematicSoup/Releases.git?path=/SceneFusion/2.0.4",
       "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "1491fbc86f4a44c3a6367458ac38ee4da1f4b4ad"
     },
     "com.unity.2d.animation": {
       "version": "13.0.4",

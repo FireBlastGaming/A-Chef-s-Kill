@@ -26,6 +26,7 @@ MonoBehaviour:
   Network:
     Timeout: 30
     ReceiveBufferSize: 1024
+    OverrideServerPort: 0
   Performance:
     PropertySyncRate: 10
     TerrainSyncRate: 2
@@ -34,3 +35,4 @@ MonoBehaviour:
     m_level: 2
     LogHistorySize: 5
     m_verbose: 0
+  m_projectId: 9916
